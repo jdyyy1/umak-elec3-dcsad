@@ -1,0 +1,8 @@
+ANSWER_1: The course-portal application failed because it was denied permission to read its configuration file at /etc/course-portal/portal.conf.
+ANSWER_2: The file portal.conf has octal permissions 600 (-rw-------), owned by root:course-portal. The owner permissions are rw- (6), group permissions are --- (0), and others permissions are --- (0). Since course-portal runs under group 995 (course-portal) and is not root, it falls under the group permission (---) and cannot read the file.
+ANSWER_3: 640
+ANSWER_3_WHY: 400 is wrong because group course-portal still gets 0 (---) and cannot read the file. 755 is wrong because it grants unnecessary execute (x) permissions to group and others. 777 is wrong because it grants write and execute permissions to everyone, which creates a critical security risk.
+ANSWER_4_ORDER: B, G, E, D, F, A, I, C, H
+ANSWER_5: chmod 777 grants write and execute permissions to all users, allowing any unauthorized user or account on the system to tamper with, edit, or overwrite the configuration file.
+ANSWER_6: Inspecting /var/log/course-portal/app.log shows no new "Permission denied" errors, or sending an HTTP GET request to the application returns a 200 OK HTTP status code.
+ANSWER_7_BRIDGE: component=file permissions and access control, detect=log monitoring and health checks, recover=automated configuration management and rollback scripts, proof=successful user HTTP status responses and active service telemetry
