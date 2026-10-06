@@ -39,7 +39,7 @@ coverage: IAM users, writing and attaching a policy, permissions boundary, least
 **Duration:** 45 minutes. Answer the questions only after Part E.
 
 
-In every step, replace `<user>` with your IAM user name, for example `<section>-g03`.
+In every step, replace `<user>` with your IAM user name, for example `dcsad-g03`.
 
 ## Part A. Sign in and find your account ID (5 minutes)
 
@@ -104,7 +104,7 @@ If step 6 fails, copy the error text. Read the action and the resource in it. Fi
 
    Name it `<user>-too-wide`. Create it. Attach it to your user as in Part D steps 1 to 3.
 3. Wait 15 seconds. Try the `t3.small` launch again. It is still denied.
-4. Switch the Region to Asia Pacific (Tokyo). Try to launch any instance. Copy the error into `submission.md`. Switch back to Singapore.
+4. Switch the Region to Asia Pacific (Tokyo). Try to launch any instance. Because the permissions boundary denies actions outside Singapore, the console immediately displays red error markers for the AMI and VPC selectors; copy the text from these error markers into `submission.md`. Switch back to Singapore.
 5. Open your user, then the Permissions tab. Select `<user>-too-wide`, click Remove, and confirm. Then open IAM, Policies, select `<user>-too-wide`, and choose Delete.
 6. Open EC2, Instances. Select the instance from Part D. Choose Instance state, then Terminate (delete) instance. This works because the instance carries your `team` tag.
 7. Open CloudTrail, then Event history. Set Lookup attributes to User name and enter `<user>`. Open one `RunInstances` event whose Error code is `Client.UnauthorizedOperation`. Events with `Client.DryRunOperation` are the console's own permission check, so skip them. Find the field `errorMessage`. New events can take several minutes to appear. If the list is empty, do Part F first and come back.
@@ -119,11 +119,20 @@ Answer in your `submission.md`.
 4. Why is `ec2:*` on `*` a poor policy even with a boundary?
 5. In two sentences: what does the boundary control that your policy cannot?
 
+### Required Screenshots
+Embed these in your `submission.md` (and save the image files in your submission directory):
+1. Screenshot of the Part B launch error with your user name visible.
+2. Screenshot of your user's Permissions tab listing `<user>-launch`.
+3. Screenshot of the instance in the Running state.
+4. Screenshot of the `t3.small` or Tokyo denial (red error markers or denial dialog).
+5. Screenshot of the CloudTrail event with `errorMessage`.
+
 ## Final PR Checklist
 
 Your Pull Request must contain:
 1. `contribution.md`: A markdown table showing who played which role (Driver, Navigator, Recorder, Reviewer) in each part of the lab. You can copy `contribution-template.md` to start.
-2. `submission.md`: The file containing your error logs, the 3 filled blanks from Part C, and your answers to the 5 questions. You can copy `submission-template.md` to start.
+2. `submission.md`: The file containing your error logs, embedded screenshots, the 3 filled blanks from Part C, and your answers to the 5 questions. You can copy `submission-template.md` to start.
+3. Your screenshot image files stored in your submission directory alongside `submission.md`.
 
 *Tip: Check out `submission-example.md` in this folder to see what a finished submission should look like.*
 
